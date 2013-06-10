@@ -1,0 +1,10 @@
+extends layout
+ 
+block content
+  div.container
+    div.content
+      h1 Error #{code}
+      h2!= msg
+
+      if typeof trace != 'undefined'
+        pre= trace
