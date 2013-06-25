@@ -1,7 +1,7 @@
 express = require 'express'
 
 app.configure ->
-  @set 'views', 'views'
+  @set 'views', 'app/templates'
   @set 'view engine', 'jade'
   @set 'view options', { pretty: true }
   @use express.methodOverride()

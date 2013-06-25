@@ -17,12 +17,6 @@ sinon = require 'sinon'
                "(KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36"
 
   browser.visit "http://localhost:5000/", options, (err, browser) ->
-    
-    # Helper function to pick out an ajax request made by the browser
-    browser.findRequest = (method, urlRegex) ->
-      _.last((arg for arg in browser.window.$.ajax.args \
-        when arg[0].type is method and arg[0].url.match(urlRegex)))?[0]
-    
     browser.wait ->
       browser.window.$ ->
         sinon.spy browser.window.$, 'ajax'
@@ -30,3 +24,12 @@ sinon = require 'sinon'
       
 beforeEach? (done) ->
   module.exports.setupBrowser (@browser) => done()
+
+afterEach ->
+  console.log browser.error.stack if browser.error?
+  
+# Compile assets before running any integration specs
+before (done) ->
+  exec 'cake assets:fast', (err, stdout, stderr) ->
+    console.log stdout
+    done()
