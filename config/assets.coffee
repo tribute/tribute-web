@@ -16,8 +16,3 @@
   all: [
     '/vendor/**/*.css'
   ]
-
-@jst =
-  templates: [
-    '/app/templates/**/*.jade'
-  ]
