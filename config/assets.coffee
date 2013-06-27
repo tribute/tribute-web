@@ -19,5 +19,5 @@
 
 @jst =
   templates: [
-    '/app/templates/**/*.jade'
+    '/app/templates/client/test.jade'
   ]
