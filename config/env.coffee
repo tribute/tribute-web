@@ -14,7 +14,7 @@ switch app.settings.env
     app.rootUrl = "http://localhost:#{app.port}"
     process.env.PORT = app.port
     app.use express.errorHandler dumpExceptions: true, showStack: true
-    app.apiUrl = "http://localhost:5001"
+    app.apiUrl = "#{app.rootUrl}/__api"
 
   when 'production'
     app.rootUrl = "http://#{process.env.HOST}"

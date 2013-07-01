@@ -26,7 +26,6 @@
     "should" : "*",
     "glob" : "*",
     "zombie" : "*",
-    "sinon" : "*",
     "nap" : "*"
   }
 }

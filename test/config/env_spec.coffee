@@ -42,6 +42,9 @@ describe 'config test', ->
   it "changes the port", ->
     process.env.PORT.should.equal '5000'
 
+  it "sets the api url to mock api", ->
+    app.apiUrl.should.equal 'http://localhost:5000/__api'
+
 describe 'config production', ->
 
   before ->
