@@ -18,7 +18,8 @@
     "stylus" : "*",
     "underscore" : "*",
     "underscore.string" : "*",
-    "request": "*"
+    "request" : "*",
+    "express-expose" : "*"
   },
   "devDependencies": {
     "mocha" : "*",

@@ -1,4 +1,4 @@
-express = require 'express'
+express = require('express')
 
 switch app.settings.env
 
@@ -7,13 +7,16 @@ switch app.settings.env
     app.rootUrl = "http://#{process.env.HOST || 'localhost'}:#{app.port}"
     process.env.PORT = app.port
     app.use express.errorHandler dumpExceptions: true, showStack: true
+    app.apiUrl = "http://#{process.env.HOST || 'localhost'}:9292"
 
   when 'test'
     app.port = 5000
     app.rootUrl = "http://localhost:#{app.port}"
     process.env.PORT = app.port
     app.use express.errorHandler dumpExceptions: true, showStack: true
+    app.apiUrl = "http://localhost:5001"
 
   when 'production'
-    app.rootUrl = if process.env.HOST then "http://#{process.env.HOST}" else require('./app.coffee').productionUrl
+    app.rootUrl = "http://#{process.env.HOST}"
     app.use express.errorHandler()
+    app.apiUrl = "http://#{process.env.API_HOST || 'api.we-shall-see.net'}"

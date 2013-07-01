@@ -10,6 +10,9 @@ describe 'config production', ->
   it 'sets port', ->
     process.env.PORT.should.equal "9293"
 
+  it 'sets apiUrl', ->
+    app.apiUrl.should.equal "http://localhost:9292"
+
 describe 'config development', ->
 
   before ->
@@ -23,6 +26,9 @@ describe 'config development', ->
   it "sets the port", ->
     process.env.PORT.should.equal '9293'
 
+  it 'sets apiUrl', ->
+    app.apiUrl.should.equal "http://localhost:9292"
+
 describe 'config test', ->
 
   before ->
@@ -35,3 +41,13 @@ describe 'config test', ->
 
   it "changes the port", ->
     process.env.PORT.should.equal '5000'
+
+describe 'config production', ->
+
+  before ->
+    delete require.cache[require.resolve("#{process.cwd()}/config/env.coffee")]
+    app.settings.env = 'production'
+    require "#{process.cwd()}/config/env.coffee"
+
+  it 'sets apiUrl', ->
+    app.apiUrl.should.equal "http://api.we-shall-see.net"
