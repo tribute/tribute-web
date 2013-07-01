@@ -29,6 +29,12 @@ task 'test', 'run Mocha tests', ->
   spawn "mocha test/config -r should --growl -t 10000 -R list", ->
     spawn "mocha test/integration -r should --growl -t 10000 -R list"
 
+task 'test:servers', 'run app in NODE_ENV=test and fake api server', ->
+  spawn 'cake assets:fast', ->
+    require './test/api/server.coffee'
+    process.env.NODE_ENV = 'test'
+    require './app.coffee'
+
 spawn = (command, callback = (->)) ->
   args = command.split(" ")
   child = child_process.spawn args[0], _.rest(args),
