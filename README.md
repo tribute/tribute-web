@@ -13,9 +13,19 @@ nvm install v0.10.10
 npm install -g nodemon
 npm install -g mocha
 npm update
+```
+
+Run
+---
+
+Run [tribute-api](https://github.com/tribute/tribute-api) with `rackup`.
+
+Then, run tribute-web.
+
+```
 coffee app.coffee
 ```
 
-Go to http://localhost:9293.
+Navigate to http://localhost:9293.
 
 
