@@ -4,6 +4,7 @@
     '/vendor/bootstrap/**/*.js'
     '/vendor/emberjs/handlebars*.js'
     '/vendor/emberjs/ember*.js'
+    '/vendor/ember.auth2/*.js'
   ]
   server: [
     '/app/server/**/*.coffee'

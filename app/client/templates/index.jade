@@ -8,6 +8,7 @@ html
   body
     include index/welcome
     include partials/_status
+    include partials/_signin
     #scripts
       script!= app.exposed()
       != nap.js('vendor', gzipSupport)
