@@ -1,4 +1,4 @@
-App.IndexRoute = Ember.Route.extend
+Tribute.IndexRoute = Ember.Route.extend
   model: ->
-    Ember.debug "Retrieving status/system from #{App.settings.apiUrl}"
-    App.Status.find('system')
+    Ember.debug "Retrieving status/system from #{Tribute.settings.apiUrl}"
+    Tribute.Status.find('system')
