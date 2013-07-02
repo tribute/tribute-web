@@ -1,6 +1,5 @@
 window.Tribute = Ember.Application.create
   settings: app
-  Models: {}
 
 Tribute.Store = DS.Store.extend
   revision: 12
