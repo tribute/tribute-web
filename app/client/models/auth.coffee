@@ -24,7 +24,7 @@ Tribute.Auth = Ember.Object.extend
       @autoSignIn(data)
     else
       @set('state', 'signing-in')
-      url = "#{@endpoint}/auth/github?redirect_uri=#{@receivingEnd}"
+      url = "#{@endpoint}/auth/github/frame?redirect_uri=#{@receivingEnd}"
       $('<iframe id="auth-frame" />').hide().appendTo('body').attr('src', url)
 
   autoSignIn: (data) ->
@@ -63,24 +63,25 @@ Tribute.Auth = Ember.Object.extend
     Tribute.__container__.lookup('controller:currentUser').set('content', user)
 
     @set('state', 'signed-in')
-    Tribute.trigger('user:signed_in', data.user)
-    if router = Tribute.__container__.lookup('router:main')
-      path = @readAfterSignInPath()
-      Ember.run.next =>
-        try
-          router.send('afterSignIn', path)
-        catch e
-          throw e unless e =~ /There are no active handlers/
-        @refreshUserData(data.user)
+    
+    # Tribute.trigger('user:signed_in', data.user)
+    # if router = Tribute.__container__.lookup('router:main')
+    #   path = @readAfterSignInPath()
+    #   Ember.run.next =>
+    #     try
+    #       router.send('afterSignIn', path)
+    #     catch e
+    #       throw e unless e =~ /There are no active handlers/
+    #     @refreshUserData(data.user)
 
-  refreshUserData: (user) ->
-    Tribute.ajax.get "/users/#{user.id}", (data) =>
-      Tribute.store.loadIncomplete(Tribute.User, data.user)
-      # if user is still signed in, update saved data
-      if @signedIn()
-        data.user.token = user.token
-        @storeData(data, Tribute.sessionStorage)
-        @storeData(data, Tribute.storage)
+  # refreshUserData: (user) ->
+  #   Tribute.ajax.get "/users/#{user.id}", (data) =>
+  #     Tribute.store.loadIncomplete(Tribute.User, data.user)
+  #     # if user is still signed in, update saved data
+  #     if @signedIn()
+  #       data.user.token = user.token
+  #       @storeData(data, Tribute.sessionStorage)
+  #       @storeData(data, Tribute.storage)
 
   signedIn: ->
     @get('state') == 'signed-in'
@@ -105,7 +106,7 @@ Tribute.Auth = Ember.Object.extend
     console.log event.data
     if event.origin == @expectedOrigin()
       if event.data == 'redirect'
-        window.location = "#{@endpoint}}/auth/handshake?redirect_uri=#{location}"
+        window.location = "#{@endpoint}/auth/github?redirect_uri=#{location}"
       else if event.data.user?
         event.data.user.token = event.data.tribute_token if event.data.tribute_token
         @setData(event.data)
