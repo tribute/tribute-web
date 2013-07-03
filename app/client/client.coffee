@@ -1,5 +1,30 @@
 window.Tribute = Ember.Application.create
+  LOG_TRANSITIONS: true
   settings: app
+
+  storage: (->
+    storage = null
+    try
+      storage = window.localStorage || throw('no storage')
+    catch err
+      storage = Storage.create()
+
+    storage
+  )()
+
+  sessionStorage: (->
+    storage = null
+    try
+      # firefox will not throw error on access for sessionStorage var,
+      # you need to actually get something from session
+      sessionStorage.getItem('invalid')
+      storage = sessionStorage
+    catch err
+      storage = Storage.create()
+
+    Ember.debug "session storage: #{storage}"
+    storage
+  )()
 
 Tribute.Store = DS.Store.extend
   revision: 12
@@ -11,15 +36,3 @@ DS.RESTAdapter.configure "plurals"
 DS.RESTAdapter.reopen
   url: Tribute.settings.apiUrl
 
-Ember.OAuth2.config =
-  tribute:
-    clientId: "test"
-    authBaseUri: 'http://localhost:9292/oauth2/auth'
-    redirectUri: 'http://localhost:9293/callback'
-    scope: 'public write'
-
-Ember.OAuth2.reopen
-  onSuccess: ->
-    console.log "Successful auth."
-  onError: ->
-    console.log "Failed"

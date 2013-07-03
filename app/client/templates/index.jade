@@ -6,8 +6,9 @@ html
     != nap.css('all', gzipSupport)
 
   body
-    include index/welcome
-    include partials/_status
+    include welcome
+    include partials/_current_user
+    include partials/_current_status
     include partials/_signin
     #scripts
       script!= app.exposed()

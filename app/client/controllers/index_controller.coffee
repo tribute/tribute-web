@@ -1,7 +1,7 @@
 Tribute.IndexController = Ember.Controller.extend
-  needs: [ 'currentStatus' ]
+  needs: [ 'currentUser', 'currentStatus' ]
 
   signIn: ->
-    Tribute.oauth = Ember.OAuth2.create
-      providerId: 'tribute'
-    Tribute.oauth.authorize()
+    @auth = Tribute.Auth.create
+      endpoint: Tribute.settings.apiUrl
+    @auth.signIn()
