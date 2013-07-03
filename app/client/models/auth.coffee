@@ -24,7 +24,7 @@ Tribute.Auth = Ember.Object.extend
       @autoSignIn(data)
     else
       @set('state', 'signing-in')
-      url = "#{@endpoint}/auth/github/frame?redirect_uri=#{@receivingEnd}"
+      url = "#{@endpoint}/auth/github/post_message?origin=#{@receivingEnd}"
       $('<iframe id="auth-frame" />').hide().appendTo('body').attr('src', url)
 
   autoSignIn: (data) ->
@@ -55,6 +55,16 @@ Tribute.Auth = Ember.Object.extend
       false
 
   setData: (data) ->
+
+    Ember.debug "Reopening DS.RESTAdapter with Authorization: #{data.token}"
+
+    DS.RESTAdapter.reopen
+      url: "http://something/something"
+      headers:
+        "Authorization" : data.token
+
+    Tribute.Store.reopen()
+
     @storeData(data, Tribute.sessionStorage)
     @storeData(data, Tribute.storage) unless @userDataFrom(Tribute.storage)
     user = @loadUser(data.user)
@@ -63,7 +73,7 @@ Tribute.Auth = Ember.Object.extend
     Tribute.__container__.lookup('controller:currentUser').set('content', user)
 
     @set('state', 'signed-in')
-    
+
     # Tribute.trigger('user:signed_in', data.user)
     # if router = Tribute.__container__.lookup('router:main')
     #   path = @readAfterSignInPath()
@@ -106,7 +116,7 @@ Tribute.Auth = Ember.Object.extend
     console.log event.data
     if event.origin == @expectedOrigin()
       if event.data == 'redirect'
-        window.location = "#{@endpoint}/auth/github?redirect_uri=#{location}"
+        window.location = "#{@endpoint}/auth/github/handshake?redirect_uri=#{location}"
       else if event.data.user?
         event.data.user.token = event.data.tribute_token if event.data.tribute_token
         @setData(event.data)

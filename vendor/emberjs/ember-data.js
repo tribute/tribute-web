@@ -1,5 +1,5 @@
-// Version: v0.13-50-g83f9f6b
-// Last commit: 83f9f6b (2013-06-25 10:35:47 -0700)
+// Version: v0.13-54-g105cfc1
+// Last commit: 105cfc1 (2013-06-30 11:35:40 -0700)
 
 
 (function() {
@@ -48,7 +48,7 @@ var define, requireModule;
 */
 
 /**
-  All Ember Data methods and functions are defined inside of this namespace. 
+  All Ember Data methods and functions are defined inside of this namespace.
 
   @class DS
   @static
@@ -4260,8 +4260,8 @@ DS.RelationshipChange.determineRelationshipType = function(recordType, knownSide
     else{
       return knownKind === "belongsTo" ? "oneToMany" : "manyToMany";
     }
-  } 
- 
+  }
+
 };
 
 DS.RelationshipChange.createChange = function(firstRecordReference, secondRecordReference, store, options){
@@ -7390,7 +7390,7 @@ DS.loaderFor = loaderFor;
 
   For an example implementation, see {{#crossLink "DS.RestAdapter"}} the
   included REST adapter.{{/crossLink}}.
-  
+
   @class Adapter
   @namespace DS
   @extends Ember.Object
@@ -8795,12 +8795,23 @@ DS.RESTAdapter = DS.Adapter.extend({
   ajax: function(url, type, hash) {
     var adapter = this;
 
+    console.log(this.headers);
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
       hash = hash || {};
       hash.url = url;
       hash.type = type;
       hash.dataType = 'json';
       hash.context = adapter;
+
+      if (adapter.headers !== undefined) {
+        var headers = adapter.headers;
+        hash.beforeSend = function (xhr) {
+          Ember.keys(headers).forEach(function(key) {
+            xhr.setRequestHeader(key, headers[key]);
+          });
+        };
+      }
 
       if (hash.data && type !== 'GET') {
         hash.contentType = 'application/json; charset=utf-8';
@@ -8820,6 +8831,7 @@ DS.RESTAdapter = DS.Adapter.extend({
   },
 
   url: "",
+  headers:  {},
 
   rootForType: function(type) {
     var serializer = get(this, 'serializer');
