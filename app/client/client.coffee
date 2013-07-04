@@ -21,18 +21,25 @@ window.Tribute = Ember.Application.create
       storage = sessionStorage
     catch err
       storage = Storage.create()
-
-    Ember.debug "session storage: #{storage}"
     storage
   )()
 
-Tribute.Store = DS.Store.extend
-  revision: 12
-  adapter: DS.RESTAdapter
+Tribute.RESTAdapter = DS.RESTAdapter.extend
+  url: Tribute.settings.apiUrl
 
-DS.RESTAdapter.configure "plurals"
+  ajax: (url, type, hash) ->
+    @updateToken()
+    @_super url, type, hash
+
+  updateToken: ->
+    # TODO: there's got to be a better way to do this when token is retrieved
+    token = Tribute.sessionStorage.getItem('tribute.token')
+    @headers.Authorization = token if @headers.Authorization != token
+
+Tribute.RESTAdapter.configure "plurals"
   status: "status"
 
-DS.RESTAdapter.reopen
-  url: Tribute.settings.apiUrl
+Tribute.Store = DS.Store.extend
+  revision: 12
+  adapter: Tribute.RESTAdapter
 

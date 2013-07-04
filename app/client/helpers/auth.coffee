@@ -24,7 +24,7 @@ Tribute.Auth = Ember.Object.extend
       @autoSignIn(data)
     else
       @set('state', 'signing-in')
-      url = "#{@endpoint}/auth/github/post_message?origin=#{@receivingEnd}"
+      url = "#{@endpoint}/auth/github/post_message?redirect_uri=#{@receivingEnd}"
       $('<iframe id="auth-frame" />').hide().appendTo('body').attr('src', url)
 
   autoSignIn: (data) ->
@@ -55,19 +55,9 @@ Tribute.Auth = Ember.Object.extend
       false
 
   setData: (data) ->
-
-    Ember.debug "Reopening DS.RESTAdapter with Authorization: #{data.token}"
-
-    DS.RESTAdapter.reopen
-      url: "http://something/something"
-      headers:
-        "Authorization" : data.token
-
-    Tribute.Store.reopen()
-
     @storeData(data, Tribute.sessionStorage)
     @storeData(data, Tribute.storage) unless @userDataFrom(Tribute.storage)
-    user = @loadUser(data.user)
+    user = Tribute.User.find(data.user)
     # TODO: we should not use __container__ directly, how to do it better?
     #        A good answer seems to do auth in context of controller.
     Tribute.__container__.lookup('controller:currentUser').set('content', user)
@@ -100,9 +90,6 @@ Tribute.Auth = Ember.Object.extend
     storage.setItem('tribute.token', data.token) if data.token
     storage.setItem('tribute.user', JSON.stringify(data.user))
 
-  loadUser: (user) ->
-    Tribute.User.find(user.id)
-
   storeAfterSignInPath: (path) ->
     Tribute.sessionStorage.setItem('tribute.after_signin_path', path)
 
@@ -112,8 +99,6 @@ Tribute.Auth = Ember.Object.extend
     path
 
   receiveMessage: (event) ->
-    Ember.debug "receiveMessage"
-    console.log event.data
     if event.origin == @expectedOrigin()
       if event.data == 'redirect'
         window.location = "#{@endpoint}/auth/github/handshake?redirect_uri=#{location}"

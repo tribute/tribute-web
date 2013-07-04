@@ -8795,8 +8795,6 @@ DS.RESTAdapter = DS.Adapter.extend({
   ajax: function(url, type, hash) {
     var adapter = this;
 
-    console.log(this.headers);
-
     return new Ember.RSVP.Promise(function(resolve, reject) {
       hash = hash || {};
       hash.url = url;
