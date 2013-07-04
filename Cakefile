@@ -27,7 +27,8 @@ task 'assets:fast', 'Compile asset packages but dont embed, minify, or gzip anyt
 
 task 'test', 'run Mocha tests', ->
   spawn "mocha test/config -r should --growl -t 10000 -R list", ->
-    spawn "mocha test/integration -r should --growl -t 10000 -R list"
+    spawn "mocha test/server -r should --growl -t 10000 -R list", ->
+      spawn "mocha test/integration -r should --growl -t 10000 -R list"
 
 spawn = (command, callback = (->)) ->
   args = command.split(" ")

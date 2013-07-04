@@ -29,13 +29,22 @@ Tribute.Auth = Ember.Object.extend
     if event.data == 'redirect'
       window.location = "#{@endpoint}/auth/github/handshake?redirect_uri=#{location}"
     else if event.data.userId? && event.data.authToken?
-      Ember.debug "Signed in #{event.data.userId} with #{event.data.authToken}."
       @setSignInData
         authToken: event.data.authToken
         userId: event.data.userId
-      @set('state', 'signed-in')
 
   setSignInData: (data) ->
+    Ember.debug "Signed in #{data.userId} with #{data.authToken}."
     Tribute.sessionStorage.setItem('tribute.authToken', data.authToken)
     Tribute.storage.setItem('tribute.authToken', data.authToken)
+    @set('state', 'signed-in')
     Tribute.__container__.lookup('controller:currentUser').set('model', Tribute.User.find(data.userId))
+
+  autoSignIn: ->
+    authToken = Tribute.storage.getItem('tribute.authToken')
+    userId = Tribute.storage.getItem('tribute.userId')
+    if authToken && userId
+      @setSignInData
+        authToken: authToken
+        userId: userId
+

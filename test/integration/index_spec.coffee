@@ -1,7 +1,5 @@
 require "#{process.cwd()}/test/helpers/integration.coffee"
 
-request = require 'request'
-
 describe 'index.jade', ->
 
   it 'renders page', (done) ->
