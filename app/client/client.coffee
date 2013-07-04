@@ -2,28 +2,6 @@ window.Tribute = Ember.Application.create
   LOG_TRANSITIONS: app.debug
   settings: app
 
-  storage: (->
-    storage = null
-    try
-      storage = window.localStorage || throw('no storage')
-    catch err
-      storage = Storage.create()
-
-    storage
-  )()
-
-  sessionStorage: (->
-    storage = null
-    try
-      # firefox will not throw error on access for sessionStorage var,
-      # you need to actually get something from session
-      sessionStorage.getItem('invalid')
-      storage = sessionStorage
-    catch err
-      storage = Storage.create()
-    storage
-  )()
-
 Tribute.RESTAdapter = DS.RESTAdapter.extend
   url: Tribute.settings.apiUrl
 
@@ -33,7 +11,7 @@ Tribute.RESTAdapter = DS.RESTAdapter.extend
 
   updateToken: ->
     # TODO: there's got to be a better way to do this when token is retrieved
-    token = Tribute.sessionStorage.getItem('tribute.token')
+    token = Tribute.sessionStorage.getItem('tribute.authToken')
     @headers.Authorization = token if token && @headers.Authorization != token
 
 Tribute.RESTAdapter.configure "plurals"

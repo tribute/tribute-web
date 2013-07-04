@@ -18,6 +18,7 @@ app.expose
   apiUrl: app.apiUrl
   rootUrl: app.rootUrl
   debug: !! process.env.DEBUG
+  env: app.settings.env
 
 module.exports = app.listen process.env.PORT, ->
   console.log "Running in #{app.settings.env} on #{process.env.PORT}"
