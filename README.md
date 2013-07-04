@@ -18,7 +18,7 @@ npm update
 Run
 ---
 
-Run [tribute-api](https://github.com/tribute/tribute-api) with `rackup`.
+Run [tribute-api](https://github.com/tribute/tribute-api) with `GITHUB_KEY=... GITHUB_SECRET=... rackup`.
 
 Then, run tribute-web.
 
@@ -28,4 +28,16 @@ coffee app.coffee
 
 Navigate to http://localhost:9293.
 
+Tests
+-----
 
+```
+cake test
+```
+
+Debug app in test mode.
+
+```
+cake assets:fast
+NODE_ENV=test coffee app.coffee
+```

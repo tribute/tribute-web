@@ -7,16 +7,17 @@ global.app = require('express')
 require './config/env'
 require './config/nap'
 require './config/middleware'
-require './app/server/routes'
 
-if app.settings.env == "test"
+if app.settings.env == 'test'
   require './test/api/routes.coffee'
 
+require './app/server/routes'
 require './app/server/handlers'
 
 app.expose
   apiUrl: app.apiUrl
   rootUrl: app.rootUrl
+  debug: !! process.env.DEBUG
 
 module.exports = app.listen process.env.PORT, ->
   console.log "Running in #{app.settings.env} on #{process.env.PORT}"

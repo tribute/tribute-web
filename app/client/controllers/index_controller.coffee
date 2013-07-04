@@ -1,5 +1,5 @@
 Tribute.IndexController = Ember.Controller.extend
-  needs: [ 'currentUser', 'currentStatus' ]
+  needs: [ 'currentStatus', 'currentUser' ]
 
   signIn: ->
     @auth = Tribute.Auth.create

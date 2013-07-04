@@ -1,5 +1,5 @@
 window.Tribute = Ember.Application.create
-  LOG_TRANSITIONS: true
+  LOG_TRANSITIONS: app.debug
   settings: app
 
   storage: (->
@@ -34,7 +34,7 @@ Tribute.RESTAdapter = DS.RESTAdapter.extend
   updateToken: ->
     # TODO: there's got to be a better way to do this when token is retrieved
     token = Tribute.sessionStorage.getItem('tribute.token')
-    @headers.Authorization = token if @headers.Authorization != token
+    @headers.Authorization = token if token && @headers.Authorization != token
 
 Tribute.RESTAdapter.configure "plurals"
   status: "status"
