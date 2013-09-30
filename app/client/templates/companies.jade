@@ -1,9 +1,12 @@
 script(type="text/x-handlebars", data-template-name="companies")
   h3
-    | Companies 
+    | Companies
+  {{#linkTo 'companies.new' }}create{{/linkTo}}
   {{#each company in controller}}
+  {{#unless company.isNew}}
   .tribute-company
     {{#linkTo 'company.show' company}}{{company.name}}{{/linkTo}}
+  {{/unless}}
   {{/each}}
   #company-detail
     {{outlet}}
@@ -17,3 +20,26 @@ script(type="text/x-handlebars", data-template-name="company")
   {{#each team in teams}}
   {{team.name}}
   {{/each}}
+
+script(type="text/x-handlebars", data-template-name="companies/new")
+  legend
+    | Create Company
+  form
+    .form-element
+      label
+        | Company Name
+      .form-input
+        {{ view Ember.TextField valueBinding="name" }}
+    .form-element
+      label
+        | Description
+      .form-input
+        {{ view Ember.TextField valueBinding="description" }}
+    .form-element
+      label
+        | Homepage
+      .form-input
+        {{ view Ember.TextField valueBinding="uri" type='url' }}
+    .actions
+      <button {{ action cancel }}>Cancel</button>
+      <button {{ action save }}>Create</button>

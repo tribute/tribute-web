@@ -12,6 +12,9 @@
   client: [
     '/app/client/client.coffee'
   ]
+  mixins: [
+    '/app/client/mixins/*.coffee'
+  ]
   models: [
     '/app/client/models/*.coffee'
   ]

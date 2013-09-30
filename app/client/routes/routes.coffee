@@ -13,21 +13,53 @@ Tribute.Router.map ->
       @route 'show', path: '/'
 
 Tribute.ProjectsRoute = Ember.Route.extend
-  model: () -> 
+  model: -> 
     return Tribute.Project.find()
-  renderTemplate: () ->
+  renderTemplate: ->
     @render 'projects', into: 'application'
 
 Tribute.ProjectShowRoute = Ember.Route.extend
-  model: () ->
+  model: ->
     @modelFor 'project'
 
+Tribute.ProjectsNewRoute = Ember.Route.extend
+  model: ->
+    transaction = @store.transaction()
+    transaction.createRecord Tribute.Project, {}
+  events:
+    cancel: ->
+      @controller.stopEditing()
+      @transitionTo 'projects.index'
+    save: ->
+      route = this
+      @controller.saveEdits().then( ->
+        route.transitionTo 'projects.index'
+      )
+    deactivate: ->
+      @controller.stopEditing()
+
 Tribute.CompaniesRoute = Ember.Route.extend
-  model: () -> 
+  model: -> 
     return Tribute.Company.find()
-  renderTemplate: () ->
+  renderTemplate: ->
     @render 'companies', into: 'application'
 
 Tribute.CompanyShowRoute = Ember.Route.extend
-  model: () ->
+  model: ->
     @modelFor 'company'
+
+Tribute.CompaniesNewRoute = Ember.Route.extend
+  model: ->
+    transaction = @store.transaction()
+    transaction.createRecord Tribute.Company, {}
+  events:
+    cancel: ->
+      @controller.stopEditing()
+      @transitionTo 'companies.index'
+    save: ->
+      route = this
+      @controller.saveEdits().then( ->
+        route.transitionTo 'companies.index'
+      )
+    deactivate: ->
+      @controller.stopEditing()

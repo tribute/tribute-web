@@ -2,8 +2,10 @@ script(type="text/x-handlebars", data-template-name="projects")
   h3
     | Projects 
   {{#each project in controller}}
+  {{#unless project.isNew}}
   .tribute-project
     {{#linkTo 'project.show' project}}{{project.name}}{{/linkTo}}
+  {{/unless}}
   {{/each}}
   #project-detail
     {{outlet}}
@@ -22,3 +24,26 @@ script(type="text/x-handlebars", data-template-name="project/show")
     {{team.name}} @ {{team.company.name}}
     {{team.description}}
   {{/each}}
+
+script(type="text/x-handlebars", data-template-name="projects/new")
+  legend
+    | Create Project
+  form
+    .form-element
+      label
+        | Project Name
+      .form-input
+        {{ view Ember.TextField valueBinding="name" }}
+    .form-element
+      label
+        | Project Description
+      .form-input
+        {{ view Ember.TextField valueBinding="description" }}
+    .form-element
+      label
+        |URL 
+      .form-input
+        {{ view Ember.TextField valueBinding="uri" type="url" }}
+    .actions
+      <button {{ action cancel }}>Cancel</button>
+      <button {{ action save }}>Create</button>
