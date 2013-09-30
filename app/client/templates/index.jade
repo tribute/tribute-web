@@ -10,7 +10,13 @@ html
     include partials/_current_user
     include partials/_current_status
     include partials/_signin
+    include projects
+    include companies
     #scripts
       script!= app.exposed()
       != nap.js('vendor', gzipSupport)
       != nap.js('client', gzipSupport)
+      != nap.js('models', gzipSupport)
+      != nap.js('controllers', gzipSupport)
+      != nap.js('routes', gzipSupport)
+      != nap.js('fixtures', gzipSupport)

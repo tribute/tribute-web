@@ -1,0 +1,24 @@
+script(type="text/x-handlebars", data-template-name="projects")
+  h3
+    | Projects 
+  {{#each project in controller}}
+  .tribute-project
+    {{#linkTo 'project.show' project}}{{project.name}}{{/linkTo}}
+  {{/each}}
+  #project-detail
+    {{outlet}}
+
+
+script(type="text/x-handlebars", data-template-name="project")
+  {{outlet}} 
+
+script(type="text/x-handlebars", data-template-name="project/show")
+  h3
+    | {{name}} ({{count}} teams using it)
+  {{uri}}
+  {{description}}
+  {{#each team in teams}}
+  .project-team
+    {{team.name}} @ {{team.company.name}}
+    {{team.description}}
+  {{/each}}

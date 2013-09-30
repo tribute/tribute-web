@@ -10,7 +10,19 @@
     '/app/server/**/*.coffee'
   ]
   client: [
-    '/app/client/**/*.coffee'
+    '/app/client/client.coffee'
+  ]
+  models: [
+    '/app/client/models/*.coffee'
+  ]
+  controllers: [
+    '/app/client/controllers/*.coffee'
+  ]
+  routes: [
+    '/app/client/routes/*.coffee'
+  ]
+  fixtures: [
+    '/app/client/fixtures/*.coffee'
   ]
 
 @css =

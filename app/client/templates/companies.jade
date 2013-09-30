@@ -1,0 +1,19 @@
+script(type="text/x-handlebars", data-template-name="companies")
+  h3
+    | Companies 
+  {{#each company in controller}}
+  .tribute-company
+    {{#linkTo 'company.show' company}}{{company.name}}{{/linkTo}}
+  {{/each}}
+  #company-detail
+    {{outlet}}
+
+
+script(type="text/x-handlebars", data-template-name="company")
+  h4
+    | {{name}}
+  h5
+    | Teams
+  {{#each team in teams}}
+  {{team.name}}
+  {{/each}}
