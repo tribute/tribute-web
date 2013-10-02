@@ -1,10 +1,10 @@
 @js =
   vendor: [
     '/vendor/jquery/*.js'
-    '/vendor/bootstrap/**/*.js'
     '/vendor/emberjs/handlebars*.js'
     '/vendor/emberjs/ember*.js'
     '/vendor/ember.auth2/*.js'
+    '/vendor/semantic/javascript/semantic.min.js'
   ]
   server: [
     '/app/server/**/*.coffee'
@@ -30,5 +30,6 @@
 
 @css =
   all: [
-    '/vendor/**/*.css'
+    '/app/client/css/*.css'
+    '/vendor/semantic/css/*.css'
   ]

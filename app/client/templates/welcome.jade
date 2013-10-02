@@ -1,7 +1,10 @@
 script(type='text/x-handlebars')
-  h1
-    | Welcome to Tribute!
-  {{outlet}}
+  .ui.fixed.transparent.inverted.main.menu
+    .tribute-header 
+      .title.item
+        | Tribute
+  .main-container.segment
+    {{outlet}}
 
 script(type="text/x-handlebars", data-template-name="index")
   {{partial "status"}}

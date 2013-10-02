@@ -1,49 +1,65 @@
 script(type="text/x-handlebars", data-template-name="projects")
-  h3
-    | Projects 
-  {{#each project in controller}}
-  {{#unless project.isNew}}
-  .tribute-project
-    {{#linkTo 'project.show' project}}{{project.name}}{{/linkTo}}
-  {{/unless}}
-  {{/each}}
-  #project-detail
-    {{outlet}}
+  .ui.two.column.relaxed.grid.basic.segment
+    .column
+      h3.ui.dividing.header
+        | Projects {{#linkTo 'projects.new'}} Add {{/linkTo}}
+      .ui.vertical.menu
+        {{#each project in controller}}
+        {{#unless project.isNew}}
+        {{#linkTo 'project.show' project class='item tribute-project'}}
+        {{project.name}}
+        {{/linkTo}}
+        {{/unless}}
+        {{/each}}
+    .ui.vertical.divider
+      | detail
+    #project-detail.column
+      {{outlet}}
 
 
 script(type="text/x-handlebars", data-template-name="project")
   {{outlet}} 
 
 script(type="text/x-handlebars", data-template-name="project/show")
-  h3
-    | {{name}} ({{count}} teams using it)
-  {{uri}}
-  {{description}}
-  {{#each team in teams}}
-  .project-team
-    {{team.name}} @ {{team.company.name}}
-    {{team.description}}
-  {{/each}}
+  .ui.piled.segment
+    h4.ui.header
+      | {{name}} ({{count}} teams using it)
+    .ui.raised.segment
+      .ui.ribbon.label
+        | URL
+      p {{uri}}
+    {{#if description}}
+    .ui.raised.segment
+      .ui.ribbon.label
+        | Description
+      p {{description}}
+    {{/if}}
+    .ui.raised.segment
+      .ui.ribbon.label
+        | Teams
+      {{#each team in teams}}
+      .project-team
+        p {{team.name}} @ {{team.company.name}}
+      {{/each}}
 
 script(type="text/x-handlebars", data-template-name="projects/new")
-  legend
-    | Create Project
-  form
-    .form-element
-      label
-        | Project Name
-      .form-input
-        {{ view Ember.TextField valueBinding="name" }}
-    .form-element
-      label
-        | Project Description
-      .form-input
-        {{ view Ember.TextField valueBinding="description" }}
-    .form-element
-      label
-        |URL 
-      .form-input
-        {{ view Ember.TextField valueBinding="uri" type="url" }}
-    .actions
-      <button {{ action cancel }}>Cancel</button>
-      <button {{ action save }}>Create</button>
+  .ui.fluid.form.segment
+    h3.ui.header
+      | Register Project with Tribute
+    .field
+      .ui.left.labeled.icon.input
+        label Project Name
+        {{ view Ember.TextField valueBinding="name" placeholder="Project Name" }}
+    .field
+      .ui.left.labeled.icon.input
+        label Description
+        {{ view Ember.TextArea valueBinding="description" placeholder="Description" }}
+    .field
+      .ui.left.labeled.icon.input
+        label Project GitHub URL
+        {{ view Ember.TextField valueBinding="uri" type="url" placeholder="Project Github URL" }}
+    .ui.horizontal.divider
+    .actions.ui.buttons
+      <div class="ui button" {{ action cancel }}> Cancel </div>
+      .or
+      <div class="ui positive button" {{ action save }}> Save </div>
