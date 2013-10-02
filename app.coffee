@@ -17,7 +17,7 @@ require './app/server/handlers'
 app.expose
   apiUrl: app.apiUrl
   rootUrl: app.rootUrl
-  debug: !! process.env.DEBUG
+  debug: !! (app.settings.env == 'development') 
   env: app.settings.env
 
 module.exports = app.listen process.env.PORT, ->

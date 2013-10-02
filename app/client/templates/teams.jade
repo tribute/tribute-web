@@ -1,0 +1,32 @@
+script(type="text/x-handlebars", data-template-name="teams")
+  .ui.relaxed.grid.basic.segment
+    .six.wide.column
+      h3.ui.dividing.header
+        | {{content.length}} Teams {{#linkTo 'teams.new'}} Add {{/linkTo}}
+      .ui.fluid.vertical.menu
+        {{#each team in controller}}
+        {{#linkTo 'team.show' team class='item tribute-team'}}
+        {{team.company.name}}: {{team.name}}
+        {{/linkTo}}
+        {{/each}}
+    #team-detail.six.wide.column
+      {{outlet}}
+
+script(type="text/x-handlebars", data-template-name="team")
+  {{outlet}}
+
+script(type="text/x-handlebars", data-template-name="team/show")
+  .ui.piled.segment
+    h4.ui.header
+      | {{name}} @ {{company.name}} 
+    .ui.raised.segment
+      .ui.ribbon.label
+        | using
+        .detail
+         {{projectCount}} 
+        |  projects
+      {{#each projectUser in projectUsers}}
+      .project
+        p {{#linkTo 'project.show' projectUser.project }} {{projectUser.project.name}} {{/linkTo}}
+      {{/each}}
+

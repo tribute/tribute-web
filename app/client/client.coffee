@@ -14,10 +14,7 @@ Tribute.RESTAdapter = DS.RESTAdapter.extend
     token = Tribute.sessionStorage.getItem('tribute.authToken')
     @headers.Authorization = token if token && @headers.Authorization != token
 
-Tribute.RESTAdapter.configure "plurals"
-  status: "status"
-
 Tribute.Store = DS.Store.extend
-  revision: 12
-  adapter: Tribute.RESTAdapter
+  revision: 13
+  adapter: DS.FixtureAdapter
 

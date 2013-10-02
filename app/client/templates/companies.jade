@@ -1,0 +1,67 @@
+script(type="text/x-handlebars", data-template-name="companies")
+  .ui.relaxed.grid.basic.segment
+    .four.wide.column
+      h3.ui.dividing.header
+        | {{content.length}} Companies {{#linkTo 'companies.new'}} Add {{/linkTo}}
+      .ui.fluid.vertical.menu
+        {{#each company in controller}}
+        {{#unless company.isNew}}
+        {{#linkTo 'company.show' company class='item tribute-company'}}
+        {{company.name}}
+        {{/linkTo}}
+        {{/unless}}
+        {{/each}}
+    #company-detail.eight.wide.column
+      {{outlet}}
+
+
+script(type="text/x-handlebars", data-template-name="company")
+  {{outlet}}
+
+script(type="text/x-handlebars", data-template-name="company/show")
+  .ui.piled.segment
+    h4.ui.header
+      | {{name}} 
+    p {{uri}}
+    .ui.raised.segment
+      .ui.ribbon.label
+        | Teams
+      {{#if hasTeams}} 
+      {{#each team in teams}}
+      p {{team.name}}
+      {{/each}}
+      {{else}}
+      p 'No teams defined for company'
+      {{/if}}
+    .ui.raised.segment
+      .ui.ribbon.label
+        | Stack
+      {{#if hasProjects}}
+      {{#each projectUser in projectUsers}}
+      p {{projectUser.project.name}} @ {{projectUser.team.name}}
+      {{/each}}
+      {{else}}
+      p No projects listed yet for this company
+      {{/if}}
+
+script(type="text/x-handlebars", data-template-name="companies/new")
+  .ui.fluid.form.segment
+    h3.ui.header
+      | Register Company
+    .field
+      .ui.left.labeled.icon.input
+        label Company Name
+        {{ view Ember.TextField valueBinding="name" placeholder="Company Name" }}
+    .field
+      .ui.left.labeled.icon.input
+        label Description
+        {{ view Ember.TextArea valueBinding="description" placeholder="Description" }}
+    .field
+      .ui.left.labeled.icon.input
+        label Homepage URL
+        {{ view Ember.TextField valueBinding="uri" type="url" placeholder="Company Homepage URL" }}
+    .ui.horizontal.divider
+    .actions.ui.buttons
+      <div class="ui button" {{ action cancel }}> Cancel </div>
+      .or
+      <div class="ui positive button" {{ action save }}> Save </div>
