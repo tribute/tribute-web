@@ -2,11 +2,11 @@ script(type="text/x-handlebars", data-template-name="teams")
   .ui.relaxed.grid.basic.segment
     .six.wide.column
       h3.ui.dividing.header
-        | {{teamCount}} Teams {{#linkTo 'teams.new'}} Add {{/linkTo}}
+        | {{content.length}} Teams {{#linkTo 'teams.new'}} Add {{/linkTo}}
       .ui.fluid.vertical.menu
         {{#each team in controller}}
         {{#linkTo 'team.show' team class='item tribute-team'}}
-        {{team.name}} @ {{team.company.name}}
+        {{team.company.name}}: {{team.name}}
         {{/linkTo}}
         {{/each}}
     #team-detail.six.wide.column

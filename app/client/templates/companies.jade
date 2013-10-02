@@ -2,7 +2,7 @@ script(type="text/x-handlebars", data-template-name="companies")
   .ui.relaxed.grid.basic.segment
     .four.wide.column
       h3.ui.dividing.header
-        | Companies {{#linkTo 'companies.new'}} Add {{/linkTo}}
+        | {{content.length}} Companies {{#linkTo 'companies.new'}} Add {{/linkTo}}
       .ui.fluid.vertical.menu
         {{#each company in controller}}
         {{#unless company.isNew}}

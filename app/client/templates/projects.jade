@@ -2,7 +2,7 @@ script(type="text/x-handlebars", data-template-name="projects")
   .ui.relaxed.grid.basic.segment
     .four.wide.column
       h3.ui.dividing.header
-        | Projects {{#linkTo 'projects.new'}} Add {{/linkTo}}
+        | {{content.length}} Projects {{#linkTo 'projects.new'}} Add {{/linkTo}}
       .ui.fluid.vertical.menu
         {{#each project in controller}}
         {{#unless project.isNew}}
