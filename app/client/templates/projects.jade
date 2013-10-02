@@ -1,9 +1,9 @@
 script(type="text/x-handlebars", data-template-name="projects")
-  .ui.two.column.relaxed.grid.basic.segment
-    .column
+  .ui.relaxed.grid.basic.segment
+    .four.wide.column
       h3.ui.dividing.header
         | Projects {{#linkTo 'projects.new'}} Add {{/linkTo}}
-      .ui.vertical.menu
+      .ui.fluid.vertical.menu
         {{#each project in controller}}
         {{#unless project.isNew}}
         {{#linkTo 'project.show' project class='item tribute-project'}}
@@ -11,9 +11,7 @@ script(type="text/x-handlebars", data-template-name="projects")
         {{/linkTo}}
         {{/unless}}
         {{/each}}
-    .ui.vertical.divider
-      | detail
-    #project-detail.column
+    #project-detail.eight.wide.column
       {{outlet}}
 
 
@@ -23,7 +21,11 @@ script(type="text/x-handlebars", data-template-name="project")
 script(type="text/x-handlebars", data-template-name="project/show")
   .ui.piled.segment
     h4.ui.header
-      | {{name}} ({{count}} teams using it)
+      | {{name}} 
+    .ui.label
+      .detail
+        {{teamCount}} 
+      |  teams using it
     .ui.raised.segment
       .ui.ribbon.label
         | URL
@@ -37,9 +39,9 @@ script(type="text/x-handlebars", data-template-name="project/show")
     .ui.raised.segment
       .ui.ribbon.label
         | Teams
-      {{#each team in teams}}
+      {{#each projectUser in projectUsers}}
       .project-team
-        p {{team.name}} @ {{team.company.name}}
+        p {{projectUser.team.name}} @ {{projectUser.company.name}}
       {{/each}}
 
 script(type="text/x-handlebars", data-template-name="projects/new")

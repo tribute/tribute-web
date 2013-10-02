@@ -3,3 +3,4 @@ Tribute.Company = DS.Model.extend
   description: DS.attr('string')
   uri: DS.attr('string')
   teams: DS.hasMany('Tribute.Team')
+  projectUsers: DS.hasMany('Tribute.ProjectUser')

@@ -3,4 +3,4 @@ Tribute.Project = DS.Model.extend
   name: DS.attr('string')
   description: DS.attr('string')
   count: DS.attr('number')
-  teams: DS.hasMany('Tribute.Team')
+  projectUsers: DS.hasMany('Tribute.ProjectUser')

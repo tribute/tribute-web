@@ -11,6 +11,10 @@ Tribute.Router.map ->
     @route 'new', path: '/new'
     @resource 'company', path: '/:company_id', () ->
       @route 'show', path: '/'
+  @resource 'teams', path: '/teams', () ->
+    @route 'new', path: '/new'
+    @resource 'team', path: '/:team_id', () ->
+      @route 'show', path: '/'
 
 Tribute.ProjectsRoute = Ember.Route.extend
   model: -> 
@@ -60,6 +64,34 @@ Tribute.CompaniesNewRoute = Ember.Route.extend
       route = this
       @controller.saveEdits().then( ->
         route.transitionTo 'companies.index'
+      )
+    deactivate: ->
+      @controller.stopEditing()
+
+Tribute.TeamsRoute = Ember.Route.extend
+  model: -> 
+    teams = Tribute.Team.find()
+    console.log teams
+    return teams
+  renderTemplate: ->
+    @render 'teams', into: 'application'
+
+Tribute.TeamShowRoute = Ember.Route.extend
+  model: ->
+    @modelFor 'team'
+
+Tribute.TeamsNewRoute = Ember.Route.extend
+  model: ->
+    transaction = @store.transaction()
+    transaction.createRecord Tribute.Team, {}
+  events:
+    cancel: ->
+      @controller.stopEditing()
+      @transitionTo 'teams.index'
+    save: ->
+      route = this
+      @controller.saveEdits().then( ->
+        route.transitionTo 'teams.index'
       )
     deactivate: ->
       @controller.stopEditing()

@@ -3,6 +3,12 @@ script(type='text/x-handlebars')
     .tribute-header 
       .title.item
         | Tribute
+      .link.item
+        | {{#linkTo projects.index}} Projects {{/linkTo}}
+      .link.item
+        | {{#linkTo companies.index}} Companies {{/linkTo}}
+      .link.item
+        | {{#linkTo teams.index}} Teams {{/linkTo}}
   .main-container.segment
     {{outlet}}
 

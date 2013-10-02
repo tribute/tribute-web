@@ -15,6 +15,6 @@ Tribute.RESTAdapter = DS.RESTAdapter.extend
     @headers.Authorization = token if token && @headers.Authorization != token
 
 Tribute.Store = DS.Store.extend
-  revision: 12
+  revision: 13
   adapter: DS.FixtureAdapter
 
