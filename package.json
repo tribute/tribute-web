@@ -4,8 +4,7 @@
   "version" : "0.1.0",
   "private" : true,
   "engines" : {
-    "node" : "10.10.x",
-    "npm" :  "0.3.x"
+    "node": "0.10.17"
   },
   "scripts" : {
     "start" : "app.coffee",
@@ -22,6 +21,7 @@
     "express-expose" : "*"
   },
   "devDependencies": {
+    "nodemon" : "*",
     "mocha" : "*",
     "should" : "*",
     "glob" : "*",

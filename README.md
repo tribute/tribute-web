@@ -12,6 +12,7 @@ source ~/.bash_profile
 nvm install v0.10.10
 npm install -g nodemon
 npm install -g mocha
+npm install -g coffee-script
 npm update
 ```
 
