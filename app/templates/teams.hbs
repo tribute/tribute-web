@@ -1,0 +1,10 @@
+.ui.relaxed.grid.basic.segment
+  .six.wide.column
+    h3.ui.dividing.header
+      | {{content.length}} Teams #{link-to 'teams.new' | Add}
+    .ui.fluid.vertical.menu
+      each team in controller
+        link-to 'team.show' team class='item tribute-team'
+          | {{ team.name }} @ {{ team.company.name }}
+  #team-detail.ten.wide.column
+    = outlet

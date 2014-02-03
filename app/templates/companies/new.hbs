@@ -1,0 +1,20 @@
+.ui.fluid.form.segment
+  h3.ui.header
+    | Register Company
+  .field
+    .ui.left.labeled.icon.input
+      label Company Name
+      Ember.TextField valueBinding="name" placeholder="Company Name"
+  .field
+    .ui.left.labeled.icon.input
+      label Description
+      Ember.TextArea valueBinding="description" placeholder="Description"
+  .field
+    .ui.left.labeled.icon.input
+      label Homepage URL
+      view Ember.TextField valueBinding="uri" type="url" placeholder="Company Homepage URL"
+  .ui.horizontal.divider
+  .actions.ui.buttons
+    .ui.button{ action cancel } Cancel
+    .or
+    .ui.positive.button{ action save } Save

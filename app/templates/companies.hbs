@@ -1,0 +1,11 @@
+.ui.relaxed.grid.basic.segment
+  .five.wide.column
+    h3.ui.dividing.header
+      | {{content.length}} Companies #{link-to 'companies.new' | Add }
+    .ui.fluid.vertical.menu
+      each company in arrangedContent
+        unless company.isNew
+          link-to 'company.show' company class='item tribute-company'
+            = company.name
+  #company-detail.eleven.wide.column
+    = outlet

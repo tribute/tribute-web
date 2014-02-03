@@ -1,6 +1,0 @@
-script(type="text/x-handlebars", data-template-name="_signin")
-  {{#if controllers.currentUser}}
-  <a {{action 'signOut'}}>Sign-Out</a>
-  {{else}}
-  <a {{action 'signIn'}}>Sign-In</a>
-  {{/if}}

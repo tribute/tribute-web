@@ -1,0 +1,12 @@
+.ui.fixed.transparent.inverted.main.menu
+  .tribute-header 
+    .title.item
+      | Tribute
+    .link.item
+      | #{link-to 'projects.index' | Projects}
+    .link.item
+      | #{link-to 'companies.index' | Companies}
+    .link.item
+      | #{link-to 'teams.index' | Teams}
+.main-container.segment
+   = outlet

@@ -1,0 +1,18 @@
+.ui.piled.segment
+  h4.ui.header
+    | {{name}} @ {{company.name}} 
+  if description
+    .ui.raised.segment
+      .ui.ribbon.label
+        | Description
+      p = description
+  .ui.raised.segment
+    .ui.ribbon.label
+      | using
+      .detail
+        = projectCount 
+      |  projects
+    each projectuser in projectusers
+      .project
+        p: link-to 'project.show' projectuser.project
+          = projectuser.project.name

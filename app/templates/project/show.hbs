@@ -1,0 +1,20 @@
+.ui.piled.segment
+  h4.ui.header
+    a href=uri target='_blank'
+      = name
+  .ui.label
+    .detail
+      = teamCount
+    |  teams using it
+  if description
+    .ui.raised.segment
+      .ui.ribbon.segment
+        | Description
+      p = description
+  .ui.raised.segment
+    .ui.ribbon.label
+      | Teams
+    each projectuser in projectusers
+      .project-team
+        p: link-to 'team.show' projectuser.team 
+          | {{projectuser.team.name}} @ {{projectuser.team.company.name}}

@@ -1,5 +1,18 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+
+# dependencies
+/node_modules
+/vendor/*
+!/vendor/loader.js
+
+# misc
+/.sass-cache
+/connect.lock
+/libpeerconnection.log
 .DS_Store
-*~
-.rvmrc
-node_modules
-public/assets
+Thumbs.db
+/coverage/*

@@ -1,0 +1,20 @@
+.ui.piled.segment
+  h4.ui.header
+    a href=uri target='_blank'
+      = name 
+  .ui.raised.segment
+    .ui.ribbon.label
+      | Teams
+    if hasTeams 
+      each team in teams
+        p: link-to 'team.show' team 
+          = team.name
+    else
+      p 'No teams defined for company'
+  .ui.raised.segment
+    .ui.ribbon.label
+      | Stack
+    each team in teams
+      each projectuser in team.projectusers
+        p 
+          | {{team.name}} Team: {{projectuser.project.name}}
