@@ -7,7 +7,9 @@
     "Ember": true,
     "Em": true,
     "DS": true,
-    "$": true
+    "$": true,
+    "httpRespond": true,
+    "fakehr": true
   },
   "node" : false,
   "browser" : false,
