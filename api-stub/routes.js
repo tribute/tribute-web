@@ -274,6 +274,17 @@ module.exports = function(server) {
           res.send(teams);
 
         });
+
+        var teamId = 2;
+        server.post('teams', function(req, res) {
+            teamId = teamId + 1;
+            var json = req.body;
+            json['team']['id'] = teamId;
+
+            res.send(json);
+        });
+
+
 	});
 
 };

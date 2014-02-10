@@ -8,7 +8,7 @@ ProjectsNewRoute = Ember.Route.extend
     save: ->
       route = this
       @get('currentModel').save().then( ->
-        route.transitionTo 'project.show', route.get('content')
+        route.transitionTo 'project.show', route.get('currentModel')
       )
 
 `export default ProjectsNewRoute`

@@ -1,2 +1,22 @@
-h1 
-  New Team
+#tribute-new-team-form.ui.fluid.form.segment
+  h3.ui.header
+    | Create Team
+  .field
+    .ui.left.labeled.icon.input
+      label Company 
+      Ember.Select elementID="teamCompanySelect" prompt="Select Team Company" contentBinding="controller.companies" optionValuePath="content.id" optionLabelPath="content.name" selectionBinding="content.company"
+  .field
+    .ui.left.labeled.icon.input
+      label Team Name
+      Ember.TextField elementId="teamNameInput" valueBinding="name" placeholder="Team Name" required="required"
+  .field
+    .ui.left.labeled.icon.input
+      label Description
+      Ember.TextArea elementId="teamDescriptionInput" valueBinding="description" placeholder="Description"
+  .ui.horizontal.divider
+  .actions.ui.buttons
+    #cancel-button.ui.button{ action 'cancel' }
+      | Cancel
+    .or
+    #save-button.ui.positive.button{ action 'save' }
+      | Save

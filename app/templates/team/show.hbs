@@ -1,12 +1,12 @@
 .ui.piled.segment
-  h4.ui.header
+  #tribute-team-name.h4.ui.header
     | {{name}} @ {{company.name}} 
   if description
-    .ui.raised.segment
+    #tribute-team-desc.ui.raised.segment
       .ui.ribbon.label
         | Description
       p = description
-  .ui.raised.segment
+  #tribute-team-projects.ui.raised.segment
     .ui.ribbon.label
       | using
       .detail
