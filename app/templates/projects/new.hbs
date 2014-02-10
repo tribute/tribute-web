@@ -1,22 +1,22 @@
-.ui.fluid.form.segment
+#tribute-new-project-form.ui.fluid.form.segment
   h3.ui.header
     | Register Project with Tribute
   .field
     .ui.left.labeled.icon.input
       label Project Name
-      Ember.TextField valueBinding="name" placeholder="Project Name" required="required"
+      Ember.TextField elementId="projectNameInput" valueBinding="name" placeholder="Project Name" required="required"
   .field
     .ui.left.labeled.icon.input
       label Description
-      Ember.TextArea valueBinding="description" placeholder="Description"
+      Ember.TextArea elementId="projectDescriptionInput" valueBinding="description" placeholder="Description"
   .field
     .ui.left.labeled.icon.input
       label Project GitHub URL
-      Ember.TextField valueBinding="uri" type="url" placeholder="Project Github URL" required="required"
+      Ember.TextField elementId="projectURLInput" valueBinding="uri" type="url" placeholder="Project Github URL" required="required"
   .ui.horizontal.divider
   .actions.ui.buttons
-    .ui.button{ action cancel }
+    #cancel-button.ui.button{ action cancel }
       | Cancel
     .or
-    .ui.positive.button{ action save }
+    #save-button.ui.positive.button{ action save }
       | Save

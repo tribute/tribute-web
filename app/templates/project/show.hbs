@@ -1,5 +1,5 @@
 .ui.piled.segment
-  h4.ui.header
+  #tribute-project-name.h4.ui.header
     a href=uri target='_blank'
       = name
   .ui.label
@@ -7,11 +7,11 @@
       = teamCount
     |  teams using it
   if description
-    .ui.raised.segment
+    #tribute-project-desc.ui.raised.segment
       .ui.ribbon.segment
         | Description
       p = description
-  .ui.raised.segment
+  #tribute-project-users.ui.raised.segment
     .ui.ribbon.label
       | Teams
     each projectuser in projectusers

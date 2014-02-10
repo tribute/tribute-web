@@ -38,7 +38,9 @@
     "wait",
     "keyEvent",
     "isolatedContainer",
-    "startApp"
+    "startApp",
+    "fakehr",
+    "httpRespond"
   ],
   "node" : false,
   "browser" : false,

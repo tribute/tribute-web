@@ -1,8 +1,8 @@
 .ui.relaxed.grid.basic.segment
   .five.wide.column
-    h3.ui.dividing.header
+    #tribute-projects-header.h3.ui.dividing.header
       | {{content.length}} Projects #{link-to 'projects.new' | Add}
-    .ui.fluid.vertical.menu
+    #tribute-projects-list.ui.fluid.vertical.menu
       each project in arrangedContent
         unless project.isNew
           link-to 'project.show' project class='item tribute-project' 
