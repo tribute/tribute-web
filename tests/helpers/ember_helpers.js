@@ -1,6 +1,6 @@
 import Application from 'appkit/app';
 
-function lookupHelpers(attrs) {
+function emberHelpers(attrs) {
   var App = Application;
   var router = App.container.lookup('router:main').router;
 
@@ -10,4 +10,4 @@ function lookupHelpers(attrs) {
 
 }
 
-export default lookupHelpers;
+export default emberHelpers;

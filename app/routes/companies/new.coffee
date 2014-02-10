@@ -8,7 +8,7 @@ CompaniesNewRoute = Ember.Route.extend
     save: ->
       route = this
       @get('currentModel').save().then( ->
-        route.transitionTo 'companies.index'
+        route.transitionTo 'company.show', route.get('currentModel')
       )
 
 `export default CompaniesNewRoute`

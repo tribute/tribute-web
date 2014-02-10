@@ -1,8 +1,8 @@
 .ui.piled.segment
-  h4.ui.header
+  #tribute-company-name.h4.ui.header
     a href=uri target='_blank'
       = name 
-  .ui.raised.segment
+  #tribute-company-teams.ui.raised.segment
     .ui.ribbon.label
       | Teams
     if hasTeams 
@@ -11,7 +11,7 @@
           = team.name
     else
       p 'No teams defined for company'
-  .ui.raised.segment
+  #tribute-company-projects.ui.raised.segment
     .ui.ribbon.label
       | Stack
     each team in teams
