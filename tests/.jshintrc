@@ -40,7 +40,8 @@
     "isolatedContainer",
     "startApp",
     "fakehr",
-    "httpRespond"
+    "httpRespond",
+    "testdata"
   ],
   "node" : false,
   "browser" : false,

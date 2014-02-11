@@ -1,17 +1,5 @@
 var App;
-
-var project = { id: 1, name: "RubyOnRails", description: "Ruby MVC Web framework", uri: "http://github.com/rails/rails", "projectusers": ["1"] };
-var projectuser = { id: "1", project: "1", team: "1" };
-var team = { id: "1", company: "1", name: "Engineering", projectusers: ["1"] };
-var company = { id: "1", name: "Github", uri: "http://github.com", teams: ["1"] };
-var projects = [];
-var projectusers = [];
-var companies = [];
-var teams = [];
-projects[0] = project;
-projectusers[0] = projectuser;
-companies[0] = company;
-teams[0] = team;
+var td = testdata();
 
 module('Integration - Companies', {
   setup: function(){
@@ -45,15 +33,15 @@ test('company show page shows company details', function() {
   expect(5);
 
   visit('/companies').then(function() {
-    httpRespond( 'GET', '/api/companies', { companies: companies, projects: projects, projectusers: projectusers, teams: teams }).then(function() {
-      equal(find("#tribute-companies-list a:contains('" + company.name + "')").length, 1, "Company name appears in companies list");
-      return click("#tribute-companies-list a:contains('" + company.name + "')");
+    httpRespond( 'GET', '/api/companies', { companies: td.companies, projects: td.projects, projectusers: td.projectusers, teams: td.teams }).then(function() {
+      equal(find("#tribute-companies-list a:contains('" + td.company.name + "')").length, 1, "Company name appears in companies list");
+      return click("#tribute-companies-list a:contains('" + td.company.name + "')");
     }).then(function() {
       var currentPath = App.__container__.lookup('controller:application').get('currentRouteName');
-      var projectLabel = team.name + ' Team: ' + project.name;
+      var projectLabel = td.team.name + ' Team: ' + td.project.name;
       equal(currentPath, "company.show", "Switched to company.show route");
-      equal(find("#tribute-company-name a:contains('" + company.name + "')").length, 1, "Company name is shown"); 
-      equal(find("#tribute-company-teams p:contains('" + team.name + "')").length, 1, "Company teams are shown"); 
+      equal(find("#tribute-company-name a:contains('" + td.company.name + "')").length, 1, "Company name is shown"); 
+      equal(find("#tribute-company-teams p:contains('" + td.team.name + "')").length, 1, "Company teams are shown"); 
       equal(find("#tribute-company-projects p:contains('" + projectLabel + "')").length, 1, "Company projects are shown"); 
     });
   });
@@ -69,15 +57,15 @@ test('companies new form creates company', function() {
       equal(find("#tribute-companies-header a:contains('Add')").length, 1, 'company add link appears');
       equal(currentPath, "companies.new", "Switched to companies.new route");
       equal(find('#tribute-new-company-form').length, 1, "New company form shown"); 
-      fillIn("#companyNameInput", company.name);
-      fillIn("#companyDescriptionInput", company.description);
-      fillIn("#companyURLInput", company.uri);
+      fillIn("#companyNameInput", td.company.name);
+      fillIn("#companyDescriptionInput", td.company.description);
+      fillIn("#companyURLInput", td.company.uri);
       return click("#save-button");
     }).then(function() {
-      httpRespond( 'POST', '/api/companies', { company: company }).then(function() {
+      httpRespond( 'POST', '/api/companies', { company: td.company }).then(function() {
         var currentPath = App.__container__.lookup('controller:application').get('currentRouteName');
         equal(currentPath, "company.show", "Switched to company.show route");
-        equal(find("#tribute-companies-list a:contains('" + company.name + "')").length, 1, "Company name appears in companies list");
+        equal(find("#tribute-companies-list a:contains('" + td.company.name + "')").length, 1, "Company name appears in companies list");
       });
     });
   });
